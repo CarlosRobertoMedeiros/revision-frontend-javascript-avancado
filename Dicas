@@ -1,0 +1,126 @@
+Criando uma Classe com métodos get acessórios eu chamo o método como um atributo
+Ex.
+Classe  
+    class Negociacao{
+
+        constructor(data, quantidade, valor){
+            this._data = data;
+            this._quantidade = quantidade;
+            this._valor = valor;
+        }
+
+        get volume(){
+            return this._quantidade * this._valor;
+        }
+
+        get data(){
+            return this._data;
+        }
+
+        get quantidade(){
+            return this._quantidade;
+        }
+
+        get valor(){
+            return this._valor;
+        }
+
+    }
+
+Chamada
+
+    <script src="js/app/models/Negociacao.js"></script>
+        <script>
+            var n1 = new Negociacao(new Date(),5, 700.50);
+            console.log(n1.quantidade);
+            console.log(n1.data);
+            console.log(n1.valor);
+            console.log(n1.volume);
+            console.log(n1);
+    </script>
+
+    Não foi necessário informar n1.quantidade() como método, pois o get permite
+    informar conforme o resultado console.log(n1.quantidade);
+
+Como deixar um objeto imutável
+    Object.freeze(n1);
+    Object.isFrozen(n1); //Valida o teste
+
+    O freeze é um método raso que não passa da superfície do código
+
+Resolver a imutabilidade aplicando programação defensiva
+    Crio um novo objeto no caso de data e retorno uma cópia do objeto
+    assim eu chamo isso de programação defensiva.
+
+    Ex. para a Negociação
+    
+    get data(){
+        return new Date(this._data.getTime());
+    }
+
+    no constructor
+        this._data = new Date(data.getTime());
+    
+    Sem retorna para data uma nova instância de data e o seu objeto fica imutável
+
+Dica legal, ao inves de ficar digitando document.querySelector e colocando o objeto, 
+basta fazer o bind  
+    let $ = document.querySelector.bind(document); //tentando imitar o jQuery assim o query selector vai fazer associação com o document
+A partir daqui as chamadas ficam iguais ao jQuery  "Lembrando que não é jQuery"
+    Ex.
+        Era assim 
+            let inputData = document.querySelector('#data');
+            let inputQuantidade = document.querySelector('#quantidade');
+            let inputValor = document.querySelector('#valor');
+        ficou assim 
+            let inputData = $('#data');
+            let inputQuantidade = $('#quantidade');
+            let inputValor = $('#valor');
+    
+
+Com relação ao trabalho com datas
+    Tomar cuidado com as conversões
+    Uma coisa interessante uma construção válida para data é
+        - new Date('2016,11,12');
+        - new Date(['YYYY','MM','dd']); //Assim funciona
+
+Spread Operator
+    let data = new Date(...this._inputData.value.split('-'));
+    Associa cada resultado de passagem de parâmetros
+    1 parâmetro do date = 1 parâmetro do split e assim por diante
+
+//Usando a função map(retorna um novo array) para iterar os valores
+
+//Continuar na Aula 05 - Atividade 02
+//Usar o padrão de projeto proxy para solucionar a atualização da view de acordo com a modificação do modelo
+//Já existe automaticamente um proxy implementado basta Usar
+//let negociacao = new Proxy(new Negociacao(new Date(),1,100),{});
+//O proxy é um apontador para o objeto, o qual é responsável pelas armadilhas
+
+//Armadilha para get
+let negociacao = new Proxy(new Negociacao(new Date(),1,100),{
+        //trap -> Armadilha do Proxy
+        get : function(target, propriedade, receiver){
+            console.log(`a propriedade ${propriedade} foi interceptada`);
+            return Reflect.get(target,propriedade,receiver);
+        }
+});
+
+//Armadilha para set
+
+let negociacao = new Proxy(new Negociacao(new Date(),1,100),{
+
+                //trap -> Armadilha do Proxy
+                set : function(target, propriedade, value, receiver){
+                    console.log(`valor anterior: ${target[propriedade]} novo valor: ${value}`);
+                    return Reflect.set(target,propriedade,value, receiver);
+                }
+
+            });
+        
+            negociacao._quantidade = 10;
+            negociacao._valor = 100;
+
+O Proxy não intercepta métodos apenas atributos e no nosso caso temos que interceptar o método adiciona para colocar na lista a negociacao
+
+JavaScript 2 3 a partir de 6 minutos
