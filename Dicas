@@ -123,4 +123,19 @@ let negociacao = new Proxy(new Negociacao(new Date(),1,100),{
 
 O Proxy não intercepta métodos apenas atributos e no nosso caso temos que interceptar o método adiciona para colocar na lista a negociacao
 
-JavaScript 2 3 a partir de 6 minutos
+//Parâmetro rest no Js  "...props"
+constructor(model,view,...props){
+
+        let proxy = ProxyFactory.create(model, props, model => 
+            view.update(model));
+
+        view.update(model);
+        
+        return proxy;
+    }
+
+ao usar eu passo um model, uma view, e n outros parâmetros, pois vão estar em um array
+
+
+
+

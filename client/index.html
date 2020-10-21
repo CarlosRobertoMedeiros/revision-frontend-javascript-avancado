@@ -40,7 +40,7 @@
             </form>
 
             <div class="text-center posicionamento">
-                <button type="button" class="btn btn-primary text-center" >
+                <button onclick="negociacaoController.importaNegociacoes()" type="button" class="btn btn-primary text-center" >
                     Importar Negociações
                 </button>
                 <button onclick="negociacaoController.apaga()" type="button" class="btn btn-primary text-center" >
@@ -61,9 +61,12 @@
         <script src="js/app/models/Mensagem.js"></script>
         <script src="js/app/views/MensagemView.js"></script>
         <script src="js/app/services/ProxyFactory.js"></script>
+        <script src="js/app/helpers/Bind.js"></script>
         <script>
             let negociacaoController = new NegociacaoController();
         </script>
        
     </body>
 </html>
+
+//Continuar do 1:59 do Avançado 2 Aula 4-3

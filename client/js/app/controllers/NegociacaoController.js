@@ -7,35 +7,52 @@ class NegociacaoController {
         this._inputQuantidade = $('#quantidade');
         this._inputValor = $('#valor');
         
-        this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(),
-                                             ['adiciona','esvazia'], 
-                                             (model) => this._negociacoesView.update(model));
-
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._negociacoesView.update(this._listaNegociacoes);
-
-        this._mensagem = new Mensagem();
-        this._mensagemView = new MensagemView($('#mensagemView'));
-        this._mensagemView.update(this._mensagem);
-
+        
+        this._listaNegociacoes = new Bind(
+            new ListaNegociacoes(),
+            new NegociacoesView($('#negociacoesView')),
+            'adiciona','esvazia');
+        
+        
+        this._mensagem = new Bind(
+            new Mensagem(),
+            new MensagemView($('#mensagemView')),
+            'texto');
     }
 
     adiciona(event){
         
         event.preventDefault();
         this._listaNegociacoes.adiciona(this._criaNegociacao());
-        
         this._mensagem.texto = 'Negociação Adicionada com Sucesso !';
-        this._mensagemView.update(this._mensagem);
-        
         this._limpaFormulario();
+    }
+
+    importaNegociacoes(){
+       
+       fetch('http://localhost:8080/v1/negociacoes/semana' , { mode: 'no-cors' })
+       .then(response => {
+         // valida se a requisição falhou
+         if (!response.ok) {
+           return new Error('falhou a requisição') // cairá no catch da promise
+         }
+   
+         // verificando pelo status
+         if (response.status === 404) {
+           return new Error('não encontrou qualquer resultado')
+         }
+   
+         // retorna uma promise com os dados em JSON
+         return response.json()
+       })
+
+
     }
 
     apaga(){
         this._listaNegociacoes.esvazia();        
-
         this._mensagem.texto ='Negociações Apagadas com Sucesso !';
-        this._mensagemView.update(this._mensagem);
+
     }
 
     _criaNegociacao(){
