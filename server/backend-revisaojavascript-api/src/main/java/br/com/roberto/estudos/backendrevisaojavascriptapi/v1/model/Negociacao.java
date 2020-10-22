@@ -10,21 +10,21 @@ import java.time.LocalDateTime;
 
 public class Negociacao {
 
-    public Negociacao(LocalDateTime data, Integer quantidade, BigDecimal valor) {
+    public Negociacao(LocalDate data, Integer quantidade, BigDecimal valor) {
         this.data = data;
         this.quantidade = quantidade;
         this.valor = valor;
     }
 
-    private LocalDateTime data;
+    private LocalDate data;
     private Integer quantidade;
     private BigDecimal valor;
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

@@ -5,6 +5,7 @@ package br.com.roberto.estudos.backendrevisaojavascriptapi.v1.model;/*
  */
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -31,15 +32,15 @@ public class ListaNegociacao {
     public List<Negociacao> listarSemana(){
         listaNegociacao.clear();
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,16,13,21,32),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,16),
                         1,
                         new BigDecimal(150)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,16,13,21,32),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,16),
                 2,
                 new BigDecimal(250)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,16,13,21,32),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,16),
                 3,
                 new BigDecimal(350)));
 
@@ -50,15 +51,15 @@ public class ListaNegociacao {
     public List<Negociacao> listarSemanaAnterior(){
 
         listaNegociacao.clear();
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,16,13,22,03),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,16),
                 1,
                 new BigDecimal(450)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.JUNE,9,13,22,03),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.JUNE,9),
                 2,
                 new BigDecimal(550)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,9,13,22,03),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,9),
                 3,
                 new BigDecimal(650)));
 
@@ -69,15 +70,15 @@ public class ListaNegociacao {
     public List<Negociacao> listarSemanaRetrasada(){
 
         listaNegociacao.clear();
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,2,13,22,8),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,2),
                 1,
                 new BigDecimal(750)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.MAY,2,13,22,3),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.MAY,2),
                 2,
                 new BigDecimal(950)));
 
-        listaNegociacao.add(new Negociacao(LocalDateTime.of(2016, Month.JUNE,2,13,22,3),
+        listaNegociacao.add(new Negociacao(LocalDate.of(2016, Month.JUNE,2),
                 3,
                 new BigDecimal(950)));
 
