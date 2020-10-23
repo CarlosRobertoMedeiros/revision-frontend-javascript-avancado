@@ -30,19 +30,44 @@ class NegociacaoController {
 
     importaNegociacoes(){
       
-       let service = new NegociacaoService();
+        let service = new NegociacaoService();
 
-       service.obterNegociacoesDaSemana((erro, negociacoes)=>{
+        Promise.all([
+            service.obterNegociacoesDaSemana(),
+            service.obterNegociacoesDaSemanaAnterior(),
+            service.obterNegociacoesDaSemanaRetrasada()]
+        ).then(negociacoes =>{
+            negociacoes
+                .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])//flatting de array
+                .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            
+            this._mensagem.texto = 'Negociações importadas com sucesso';
+        })
+        .catch(error => this._mensagem.texto = error);
+       
+        //Maneira de Fazer Requisições Assíncronas
+        /*
+        service.obterNegociacoesDaSemana()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
 
-            if (erro){
-                this._mensagem.texto = err;
-                return;
-            }
+        service.obterNegociacoesDaSemanaAnterior()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
 
-            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações Importadas com Sucesso';
-
-       });
+        service.obterNegociacoesDaSemanaRetrasada()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+                this._mensagem.texto = 'Negociações da semana obtida com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
+        */
     }
 
     apaga(){
@@ -68,8 +93,4 @@ class NegociacaoController {
         this._inputData.focus();
 
     }
-
-
-
-
 }

@@ -136,6 +136,8 @@ constructor(model,view,...props){
 
 ao usar eu passo um model, uma view, e n outros parâmetros, pois vão estar em um array
 
+//Utilizando o IDB o banco de dados do navegador
+
 
 
 
