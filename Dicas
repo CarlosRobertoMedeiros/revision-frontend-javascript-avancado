@@ -142,3 +142,5 @@ No chrome em console acesse o
 
 
 
+Em JavaScript os tipos literais(Tipos primitivos em Java) como String, number boolean ao usar o == eles não comparam objetos e sim valores
+O JSON.stringfy pode ser utilizado para comparar strings
