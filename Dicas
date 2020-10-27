@@ -144,3 +144,9 @@ No chrome em console acesse o
 
 Em JavaScript os tipos literais(Tipos primitivos em Java) como String, number boolean ao usar o == eles não comparam objetos e sim valores
 O JSON.stringfy pode ser utilizado para comparar strings
+
+
+Trabalhando com Transpilação
+    Compatibilidade de Ecma Script 6 para 5
+
+    npm init --cria o package.json
